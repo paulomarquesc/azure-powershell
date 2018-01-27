@@ -63,26 +63,11 @@ namespace Microsoft.Azure.Commands.CosmosDb.Cmdlet
         {
         }
 
-        ///// <summary>
-        ///// Begin cmdlet processing
-        ///// </summary>
-        //protected override void BeginProcessing()
-        //{
-        //    WriteObject("test");
-        //    base.BeginProcessing();
-        //}
-
         /// <summary>
         /// Execute command
         /// </summary>
-        ////[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-        //public override void ExecuteCmdlet()
-        //{
-        //    WriteObject(this.ResourceGroup);
-        //}
-
-
-        protected override void EndProcessing()
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public override void ExecuteCmdlet()
         {
             WriteObject(this.ResourceGroup);
         }
