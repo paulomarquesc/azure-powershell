@@ -24,13 +24,13 @@ namespace Microsoft.Azure.Commands.CosmosDb.Cmdlet
     using Microsoft.WindowsAzure.Commands.Common;
     using Microsoft.WindowsAzure.Commands.Utilities.Common;
     using Microsoft.Azure.CosmosDB.Table;
-
+    using Microsoft.Azure.Commands.ResourceManager.Common;
 
     /// <summary>
     /// list azure tables
     /// </summary>
     [Cmdlet(VerbsCommon.Get, CosmosDbNouns.Table), OutputType(typeof(CloudTable))]
-    public class GetAzureRmCosmosDbTableCommand : CosmosDbBaseCmdlet
+    public class GetAzureRmCosmosDbTableCommand : AzureRMCmdlet
     {
         [Parameter(Position = 0,
                     HelpMessage = "Resource Group name",
@@ -66,11 +66,11 @@ namespace Microsoft.Azure.Commands.CosmosDb.Cmdlet
         ///// <summary>
         ///// Begin cmdlet processing
         ///// </summary>
-        protected override void BeginProcessing()
-        {
-            WriteObject("test");
-            base.BeginProcessing();
-        }
+        //protected override void BeginProcessing()
+        //{
+        //    WriteObject("test");
+        //    base.BeginProcessing();
+        //}
 
         /// <summary>
         /// Execute command

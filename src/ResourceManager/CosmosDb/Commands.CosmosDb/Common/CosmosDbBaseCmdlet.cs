@@ -33,31 +33,31 @@ namespace Microsoft.Azure.Commands.CosmosDb.Common
     public abstract class CosmosDbBaseCmdlet : AzureRMCmdlet
     {
 
-        public override void ExecuteCmdlet()
-        {
-            base.ExecuteCmdlet();
-        }
+        //public override void ExecuteCmdlet()
+        //{
+        //    base.ExecuteCmdlet();
+        //}
 
-        protected void ExecuteClientAction(Action action)
-        {
-            try
-            {
-                action();
-            }
-            catch (Rest.Azure.CloudException ex)
-            {
-                try
-                {
-                    base.EndProcessing();
-                }
-                catch
-                {
-                    // Ignore exceptions during end processing
-                }
+        //protected void ExecuteClientAction(Action action)
+        //{
+        //    try
+        //    {
+        //        action();
+        //    }
+        //    catch (Rest.Azure.CloudException ex)
+        //    {
+        //        try
+        //        {
+        //            base.EndProcessing();
+        //        }
+        //        catch
+        //        {
+        //            // Ignore exceptions during end processing
+        //        }
 
-                throw ex;
-            }
-        }
+        //        throw ex;
+        //    }
+        //}
 
 
     }
