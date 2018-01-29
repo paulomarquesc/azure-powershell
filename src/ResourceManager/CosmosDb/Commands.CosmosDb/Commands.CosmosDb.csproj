@@ -105,7 +105,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cmdlet\GetAzureRmCosmosDbTable.cs" />
+    <Compile Include="Table\Cmdlet\GetAzureRmCosmosDbTable.cs" />
     <Compile Include="Common\ComosDbNouns.cs" />
     <Compile Include="Common\CosmosDbBaseCmdlet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,10 +139,15 @@
       <Name>Commands.ResourceManager.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="help\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="help\Get-AzureRmCosmosDbTable.md" />
+    <None Include="help\Get-AzureRmCosmosDbTableRowAll.md" />
+    <None Include="help\Get-AzureRmCosmosDbTableRowByColumnName.md" />
+    <None Include="help\Get-AzureRmCosmosDbTableRowByCustomFilter.md" />
+    <None Include="help\Get-AzureRmCosmosDbTableRowByPartitionKey.md" />
+    <None Include="help\Remove-AzureRmCosmosDbTableRow.md" />
+    <None Include="help\Update-AzureRmCosmosDbTableRow.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -12,17 +12,12 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.Azure.Commands.CosmosDb.Cmdlet
+namespace Microsoft.Azure.Commands.CosmosDb.Table.Cmdlet
 {
 
-    using System;
-    using System.Collections.Generic;
     using System.Management.Automation;
     using System.Security.Permissions;
     using Microsoft.Azure.Commands.CosmosDb.Common;
-    using Microsoft.Azure.Commands.CosmosDb;
-    using Microsoft.WindowsAzure.Commands.Common;
-    using Microsoft.WindowsAzure.Commands.Utilities.Common;
     using Microsoft.Azure.CosmosDB.Table;
     using Microsoft.Azure.Commands.ResourceManager.Common;
 
