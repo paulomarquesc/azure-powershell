@@ -54,16 +54,17 @@ CLRVersion = '4.0'
 RequiredModules = @(@{ModuleName = 'AzureRM.Profile'; ModuleVersion = '4.1.1'; })
 
 # Assemblies that must be loaded prior to importing this module
-RequiredAssemblies = @( '.\Microsoft.Azure.CosmosDB.Table.dll',
-						'.\Microsoft.Azure.Documents.Client.dll',
-						'.\Microsoft.Azure.Storage.Common.dll',
-						'.\Microsoft.Data.Edm.dll',
-						'.\Microsoft.Data.OData.dll',
-						'.\Microsoft.Data.Services.Client.dll',
-						'.\Microsoft.OData.Core.dll',
-						'.\Microsoft.OData.Edm.dll',
-						'.\Microsoft.Spatial.dll',
-						'.\Newtonsoft.Json.dll'
+RequiredAssemblies = @( #'.\Newtonsoft.Json.dll',
+						#'.\Microsoft.Azure.CosmosDB.Table.dll',
+						#'.\Microsoft.Azure.Documents.Client.dll',
+						#'.\Microsoft.Azure.Storage.Common.dll',
+						#'.\Microsoft.Data.Edm.dll',
+						#'.\Microsoft.Data.OData.dll',
+						#'.\Microsoft.Data.Services.Client.dll',
+						#'.\Microsoft.OData.Core.dll',
+						#'.\Microsoft.OData.Edm.dll',
+						#'.\Microsoft.Spatial.dll'
+						
 )
 
 

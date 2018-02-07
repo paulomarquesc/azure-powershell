@@ -14,18 +14,21 @@
 
 namespace Microsoft.Azure.Commands.CosmosDb.Table.Cmdlet
 {
-
+    using System;
     using System.Management.Automation;
     using System.Security.Permissions;
+    using Microsoft.Azure.CosmosDb.Common;
     using Microsoft.Azure.Commands.CosmosDb.Common;
     using Microsoft.Azure.CosmosDB.Table;
-    using Microsoft.Azure.Commands.ResourceManager.Common;
+    using Newtonsoft.Json.Linq;
+    using ProjectResources = Microsoft.Azure.Commands.CosmosDb.Properties.Resources;
+    using Microsoft.Azure.Storage;
 
     /// <summary>
     /// list azure tables
     /// </summary>
     [Cmdlet(VerbsCommon.Get, CosmosDbNouns.Table), OutputType(typeof(CloudTable))]
-    public class GetAzureRmCosmosDbTableCommand : AzureRMCmdlet
+    public class GetAzureRmCosmosDbTableCommand : CosmosDbBaseCmdlet
     {
         [Parameter(Position = 0,
                     HelpMessage = "Resource Group name",
@@ -64,9 +67,46 @@ namespace Microsoft.Azure.Commands.CosmosDb.Table.Cmdlet
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public override void ExecuteCmdlet()
         {
-            WriteObject(this.ResourceGroup);
+            string resourceType = "Microsoft.DocumentDb/databaseAccounts";
+            string apiVersion = "2015-04-08";
+            string action = "listKeys";
+
+            // Obtaining the resource Id of CosmosDB Account
+            Guid subscriptionId = new Guid (DefaultContext.Subscription.Id);
+            string cosmosDbResourceId = CosmosDbCoreHelper.GetCosmosDbResourceId(
+                    subscriptionId: subscriptionId,
+                    resourceGroupName: this.ResourceGroup,
+                    resourceType: resourceType,
+                    cosmosDbAccountName: this.CosmosDbAccount
+                );
+
+            // Obtaining Cosmos DB Keys
+            var operationResult = this.GetResourcesClient()
+                .InvokeActionOnResource<JObject>(
+                    resourceId: cosmosDbResourceId,
+                    action: action,
+                    apiVersion: apiVersion,
+                    cancellationToken: this.CancellationToken.Value)
+                .Result;
+
+            CosmosDbKeyInfo keys = CosmosDbCoreHelper.GetKeys(operationResult);
+
+            if (keys == null)
+            {
+                throw new Exception(ProjectResources.null_cosmosDbKeyInfoObject);
+            }
+
+            // Creating the table client object and returning
+            string connString = CosmosDbCoreHelper.GetCosmosDbConnectionString(CosmosDbAccount, keys.PrimaryMasterKey);
+            CloudStorageAccount cosmosDbAccount = CloudStorageAccount.Parse(connString);
+            CloudTableClient tableClient = cosmosDbAccount.CreateCloudTableClient();
+
+            CloudTable table = tableClient.GetTableReference(tableName: this.TableName);
+
+            // Creating table if it does not exist
+            table.CreateIfNotExists();
+
+            WriteObject(table);
         }
-
     }
-
 }
